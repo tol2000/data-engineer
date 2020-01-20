@@ -27,7 +27,6 @@ pipeline = Pipeline([
     ('tfidf', vectorizer),
     ('clf', RandomForestClassifier()),
 ])
-Tfidf
 
 parameters = {
     'tfidf__max_df': (0.5, 0.75, 1.0),

@@ -14,9 +14,3 @@ make run-jupyter
 - Для того чтобы провести инференс модели на Python, воспользуйтесь примером в `python_model_spark_inference`.
 - Для того чтобы построить и применить модель целиком с помощью Spark ML, воспользуйтесь ноутбуком `create_spark_model`.
 
-## В конце
-
-Грохаем пред. контейнера, чтобы след. стартовал с пустого контекста (не было загруженных файлов и т.п.)
-
-`docker rm $(docker ps -a -q --filter ancestor=jupyter/all-spark-notebook)`
-

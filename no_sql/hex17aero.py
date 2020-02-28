@@ -91,7 +91,6 @@ def get_ltv_by_phone(phone_number):
         (dummy1, dummy2, pDict) = records[0] # first found string
         return pDict.get( "lifetime_value" )
     except Exception as e:
-
         logging.error('Requested phone number is not found ' + str(phone_number))
 
 # Проверяем созданные функции, заодно замеряем время поиска по ключу и индексу

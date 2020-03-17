@@ -49,7 +49,41 @@ Stream должен содержать следующие поля: createdat, c
 
 wikipedia.parsed - стрим, где на текущий момент больше всего данных, а также самое большое потребление (consumed per second)
 
+Поскольку есть условие при создании стрима, то мы будем использовать streaming ETL.
+https://www.confluent.io/stream-processing-cookbook/ksql-recipes/data-filtering/
 
+Смотрим. какие есть стримы
+
+```
+ksql> show streams;
+
+ Stream Name              | Kafka Topic                 | Format 
+-----------------------------------------------------------------
+ EN_WIKIPEDIA_GT_1_COUNTS | EN_WIKIPEDIA_GT_1_COUNTS    | AVRO   
+ EN_WIKIPEDIA_GT_1_STREAM | EN_WIKIPEDIA_GT_1           | AVRO   
+ KSQL_PROCESSING_LOG      | default_ksql_processing_log | JSON   
+ WIKIPEDIA                | wikipedia.parsed            | AVRO   
+ WIKIPEDIABOT             | WIKIPEDIABOT                | AVRO   
+ WIKIPEDIANOBOT           | WIKIPEDIANOBOT              | AVRO   
+-----------------------------------------------------------------
+```
+
+У нас уже есть стрим, основанный на wikipedia.parsed, это wikipedia.
+Более того, есть стрим wikipedianobot, он-то нам и нужен.
+Поэтому не будем изобретать велосипед, а создадим стрим на его основе.
+Убедимся, что стрим тот, который нам подходит (смотрим на его запрос)
+
+```
+describe extended wikipedia;
+describe extended wikipedianobot;
+```
+
+```
+create stream wikilang as
+  select createdat, channel, username, wikipage, diffurl
+  from wikipedianobot
+  where wikipedianobot.channel <> '#en.wikipedia';
+```
 
 == 3. Мониторинг WIKILANG
 

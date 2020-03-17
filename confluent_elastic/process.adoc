@@ -39,13 +39,17 @@ DONE! Connect to Confluent Control Center at http://localhost:9021
 3. Терминал с открытым KSQL CLI, для этого в директории ./cp-demo выполните команду `docker-compose exec ksql-cli ksql http://ksql-server:8088`
 4. Терминал с shell в директории ./cp-demo для запуска скриптов и отладки
 
-
-
 == 2. Создайте KSQL Stream WIKILANG
 
 Посмотрите какие топики есть сейчас в системе, и на основе того, в котором вы видите максимальный объем данных создайте stream по имени WIKILANG который фильтрует правки только в разделах национальных языков, кроме английского (поле channel вида #ru.wikipedia), который сделали не боты.
 
 Stream должен содержать следующие поля: createdat, channel, username, wikipage, diffurl
+
+=== Решение.
+
+wikipedia.parsed - стрим, где на текущий момент больше всего данных, а также самое большое потребление (consumed per second)
+
+
 
 == 3. Мониторинг WIKILANG
 

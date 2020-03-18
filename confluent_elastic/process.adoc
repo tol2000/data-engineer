@@ -52,7 +52,7 @@ wikipedia.parsed - стрим, где на текущий момент боль�
 Поскольку есть условие при создании стрима, то мы будем использовать streaming ETL.
 https://www.confluent.io/stream-processing-cookbook/ksql-recipes/data-filtering/
 
-Смотрим. какие есть стримы
+Смотрим какие есть стримы
 
 ```
 ksql> show streams;
@@ -94,8 +94,8 @@ create stream wikilang as
 Вижу такие цифры
 
 ```
-wikilang 1012
-wikipedianobot 1846
+wikilang 785
+wikipedianobot 1339
 ```
 
 Отличие неботов на всех языках и на английском примерно в два раза.
@@ -144,25 +144,24 @@ For query topology and execution plan please run: EXPLAIN <QueryId>
 
 Local runtime statistics
 ------------------------
-messages-per-sec:      3.77   total-messages:      2416     last-message: 2020-03-17T14:11:43.522Z
+messages-per-sec:      2.86   total-messages:      1065     last-message: 2020-03-18T12:07:21.617Z
 
 (Statistics of the local KSQL server interaction with the Kafka topic WIKILANG)
 ```
 
-- В KSQL CLI получите текущую статистику WIKIPEDIANOBOT: descrbie extended wikipedianobot;  
+- В KSQL CLI получите текущую статистику WIKIPEDIANOBOT: descrbie extended wikipedianobot;
 
 Приложите раздел Local runtime statistics к ответу на задание.
 
 ```
 Local runtime statistics
 ------------------------
-consumer-messages-per-sec:      6.46 consumer-total-bytes:   1050343 consumer-total-messages:      4347 messages-per-sec:      6.44   total-messages:      7637     last-message: 2020-03-17T14:14:11.416Z
+consumer-messages-per-sec:      4.72 consumer-total-bytes:    445313 consumer-total-messages:      1918 messages-per-sec:      4.70   total-messages:      3644     last-message: 2020-03-18T12:08:33.585Z
 ```
 
 Почему для wikipedianobot интерфейс показывает также consumer-* метрики?
 
-У этого топика есть подписчики (консьюмеры) - брокеры с id 2 и 1.
-Что интересно, эти же брокеры являются и продьюсерами, только противоположных партиций.
+У этого топика есть подписчики (консьюмеры).
 
 == 4. Добавьте данные из стрима WIKILANG в ElasticSearch
 
@@ -173,7 +172,13 @@ consumer-messages-per-sec:      6.46 consumer-total-bytes:   1050343 consumer-to
 Используя полученные знания и документацию ответьте на вопросы:  
 
 a) Опишите что делает каждая из этих операций?  
-б) Зачем Elasticsearch нужен mapping чтобы принять данные?  
+
+б) Зачем Elasticsearch нужен mapping чтобы принять данные?
+
+Кафка ничего не знает о структуре данных внутри себя.
+Это забота подключающихся к ней приложений.
+
+
 в) Что дает index-pattern?
 
 == 5. Создайте отчет "Топ10 национальных разделов" на базе индекса wikilang
